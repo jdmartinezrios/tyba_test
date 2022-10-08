@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import 'package:tyba_test/blocs/university_bloc.dart';
-import 'package:tyba_test/common/index.dart';
-import 'package:tyba_test/pages/university_home_page.dart';
+import 'package:tyba_test/config/index.dart';
+import 'package:tyba_test/presentation/bloc/university_bloc.dart';
+import 'package:tyba_test/presentation/pages/university_home_page.dart';
 
 void main() {
   runApp(MyApp());
