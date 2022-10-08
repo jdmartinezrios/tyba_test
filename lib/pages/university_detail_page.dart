@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
+import 'package:tyba_test/common/index.dart';
 import 'package:tyba_test/models/university_model.dart';
 import 'package:tyba_test/widgets/university_detail_layout.dart';
 
@@ -21,7 +22,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('University Detail'),
+        title: const Text(UniversityConstants.DETAIL_TITLE),
         leading: IconButton(
           icon: Icon(Icons.chevron_left),
           onPressed: () => Navigator.of(context).pop(),

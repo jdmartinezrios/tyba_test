@@ -3,7 +3,10 @@ import 'package:tyba_test/blocs/university_state.dart';
 
 abstract class UniversityEvent {}
 
-class FetchedUniversity extends UniversityEvent {}
+class FetchedUniversity extends UniversityEvent {
+  final UniversityStatus? from;
+  FetchedUniversity({this.from});
+}
 
 class ChangeLayout extends UniversityEvent {
   final LayoutStyle layout;

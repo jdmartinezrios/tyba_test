@@ -8,5 +8,5 @@ class UniversityResponse {
 }
 
 abstract class UniversityApi {
-  Future<UniversityResponse> fetchUniversities(int page);
+  Future<UniversityResponse> fetchUniversities();
 }

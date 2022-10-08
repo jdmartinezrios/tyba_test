@@ -3,18 +3,15 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:tyba_test/blocs/university_state.dart';
-import 'package:tyba_test/models/university_model.dart';
-import 'package:tyba_test/widgets/univeristy_filter.dart';
+import 'package:tyba_test/widgets/univerisity_filter.dart';
 import 'package:tyba_test/widgets/university_grid_view.dart';
 import 'package:tyba_test/widgets/university_list_view.dart';
 
 class UniversityLayout extends StatelessWidget {
-  final LayoutStyle layout;
-  final List<UniversityModel> universities;
+  final UniversityState state;
   const UniversityLayout({
     Key? key,
-    required this.layout,
-    required this.universities,
+    required this.state,
   }) : super(key: key);
 
   @override
@@ -22,12 +19,23 @@ class UniversityLayout extends StatelessWidget {
     return Column(
       children: [
         UniversityFilter(),
-        (layout == LayoutStyle.GridView)
-            ? Expanded(
-                child: UniversityGridView(universities: universities),
-              )
-            : Expanded(child: UniversityListView(universities: universities)),
+        universityView,
       ],
     );
+  }
+
+  Expanded get universityView {
+    if (state.layout == LayoutStyle.GridView)
+      return Expanded(
+        child: UniversityGridView(
+          universities: state.universities,
+          hasReachedMax: state.hasReachedMax,
+        ),
+      );
+    return Expanded(
+        child: UniversityListView(
+      universities: state.universities,
+      hasReachedMax: state.hasReachedMax,
+    ));
   }
 }

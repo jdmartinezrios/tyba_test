@@ -12,7 +12,7 @@ class UniversityServices implements UniversityApi {
   UniversityServices(this.httpClient);
 
   @override
-  Future<UniversityResponse> fetchUniversities(int limit) async {
+  Future<UniversityResponse> fetchUniversities() async {
     final _endpoint = UniversityEndpoints.GETALL;
     final _url = Uri.parse(UniversityConstants.SERVICES[_endpoint]);
 

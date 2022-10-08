@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 // Project imports:
 import 'package:tyba_test/models/university_model.dart';
 
-enum UniversityStatus { intial, success, failure }
+enum UniversityStatus { initial, success, failure }
 enum LayoutStyle { GridView, ListView }
 
 class UniversityState extends Equatable {
@@ -14,7 +14,7 @@ class UniversityState extends Equatable {
   final List<UniversityModel> universities;
 
   const UniversityState({
-    this.status = UniversityStatus.intial,
+    this.status = UniversityStatus.initial,
     this.universities = const <UniversityModel>[],
     this.hasReachedMax = false,
     this.layout = LayoutStyle.ListView,
@@ -35,5 +35,10 @@ class UniversityState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [status, universities, hasReachedMax, layout];
+  List<Object?> get props => [
+        status,
+        universities,
+        hasReachedMax,
+        layout,
+      ];
 }

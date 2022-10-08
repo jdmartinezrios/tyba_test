@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tyba_test/blocs/university_bloc.dart';
 import 'package:tyba_test/blocs/university_event.dart';
 import 'package:tyba_test/blocs/university_state.dart';
+import 'package:tyba_test/common/index.dart';
 import 'package:tyba_test/widgets/university_filter_item.dart';
 
 class UniversityFilter extends StatelessWidget {
@@ -22,31 +23,31 @@ class UniversityFilter extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Colors.black26,
             width: 1,
+            color: Colors.black26,
           ),
         ),
       ),
       child: Row(
         children: [
-          Expanded(
-            child: UniversityFilterItem(
-              title: 'List',
-              icon: Icons.list,
-              onPressed: () => _universityBloc.add(
-                ChangeLayout(LayoutStyle.ListView),
+          ...<Map<String, LayoutStyle>>[
+            {UniversityConstants.LIST_VIEW: LayoutStyle.ListView},
+            {UniversityConstants.GRID_VIEW: LayoutStyle.GridView},
+          ].map((filter) {
+            final _filterName = filter.keys.first;
+            final _filterValue = filter.values.first;
+            final _iconCondition = _filterName == UniversityConstants.LIST_VIEW;
+            final _filterIcon = _iconCondition ? Icons.list : Icons.grid_on;
+            return Expanded(
+              child: UniversityFilterItem(
+                title: _filterName,
+                icon: _filterIcon,
+                onPressed: () => _universityBloc.add(
+                  ChangeLayout(_filterValue),
+                ),
               ),
-            ),
-          ),
-          Expanded(
-            child: UniversityFilterItem(
-              title: 'Grid',
-              icon: Icons.grid_on,
-              onPressed: () => _universityBloc.add(
-                ChangeLayout(LayoutStyle.GridView),
-              ),
-            ),
-          ),
+            );
+          }).toList(),
         ],
       ),
     );

@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tyba_test/blocs/university_bloc.dart';
 import 'package:tyba_test/blocs/university_event.dart';
 import 'package:tyba_test/blocs/university_state.dart';
+import 'package:tyba_test/common/index.dart';
 import 'package:tyba_test/widgets/university_error.dart';
 import 'package:tyba_test/widgets/university_layout.dart';
 
@@ -25,28 +26,37 @@ class _UniversityHomePageState extends State<UniversityHomePage> {
   void initState() {
     super.initState();
     _universityBloc = BlocProvider.of<UniversityBloc>(context);
-    _universityBloc.add(FetchedUniversity());
+    fetchUniversities();
   }
+
+  void fetchUniversities() {
+    _universityBloc.add(FetchedUniversity(
+      from: UniversityStatus.initial,
+    ));
+  }
+
+  void handleErrorAction() => fetchUniversities();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Universities'),
+        title: const Text(UniversityConstants.HOME_TITLE),
       ),
       body: BlocBuilder<UniversityBloc, UniversityState>(
         builder: (context, state) {
-          if (state.status == UniversityStatus.intial)
+          if (state.status == UniversityStatus.initial)
             return Center(
               child: CircularProgressIndicator(),
             );
           if (state.status == UniversityStatus.failure)
             return Center(
-              child: UniversityError(),
+              child: UniversityError(
+                onPressed: handleErrorAction,
+              ),
             );
           return UniversityLayout(
-            layout: state.layout,
-            universities: state.universities,
+            state: state,
           );
         },
       ),
